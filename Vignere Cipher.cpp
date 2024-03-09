@@ -8,11 +8,11 @@ string ValidInput(string TextInput);
 string LimitedCharForEncryptOrDecrypt(string TextInputEncryptOrDecrypt);
 string LimitedCharForKeyWords(string TextInputkeywords);
 string ConvertToUpperCase(string TextInput);
-void TheProcessOfEnOrDe(int NumberOfChoice);
+void TheProcessOfEnOrDe(string NumberOfChoice);
 
 int main()
 {
-    int NumberOfChoice;
+    string NumberOfChoice;
     
     while(true)
     {
@@ -20,30 +20,24 @@ int main()
         cout << "1- Cipher a message." << endl;
         cout << "2- Decipher a message." << endl;
         cout << "3- End." << endl;
-        cout << "\nEnter a number your choice: "; 
+        cout << "\nEnter a number your choice (1/2/3): "; 
+        
+        // Verify that input between 1/2/3
         while(true)
         {
-            // Verify that the entry integer number
-            while(!(cin >> NumberOfChoice))
-            {
-                cout << "Please Enter a valid choice: ";
-                cin.clear();
-                cin.ignore(123,'\n');
-            }
-            
-            if(NumberOfChoice == 1 || NumberOfChoice == 2 || NumberOfChoice == 3)
+            cin >> NumberOfChoice;
+            if((NumberOfChoice == "1" || NumberOfChoice == "2" || NumberOfChoice == "3") && NumberOfChoice.size() == 1)
                 break;
-  
             else
-                cout << "Please enter 1,2 or 3: ";
+                cout << endl <<"Please enter a valid choice between (1/2/3): ";
         }
         
-        if(NumberOfChoice == 3)
+        if(NumberOfChoice == "3")
         {
             cout << "\nEnd Program.\n" << endl;
             break;
         }
-        
+
         // This code removes extra spaces when entering the desired value
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
         
@@ -120,7 +114,7 @@ string ConvertToUpperCase(string TextInput)
     return Text;
 }
 
-void TheProcessOfEnOrDe(int NumberOfChoice)
+void TheProcessOfEnOrDe(string NumberOfChoice)
 {
        string TextInputEnOrDe, KeyWord, TextOutputEnOrDe;
        int NumberOfAscii, Key;
@@ -158,14 +152,14 @@ void TheProcessOfEnOrDe(int NumberOfChoice)
             }
             
             // Encrypt the desired word
-            else if(NumberOfChoice == 1)
+            else if(NumberOfChoice == "1")
             {
                 // To calculate the encrypted text with keyword
                 NumberOfAscii = ( ( int(TextInputEnOrDe[i]) + int(KeyWord[i % KeyWord.size()]) ) % 26 ) + 65;
             }
             
             // Decrypt the desired word
-            else if(NumberOfChoice == 2)
+            else if(NumberOfChoice == "2")
             {
                 // To calculate the keyword
                 Key = (KeyWord[i % KeyWord.size()] - 65) % 26;
@@ -177,9 +171,9 @@ void TheProcessOfEnOrDe(int NumberOfChoice)
             TextOutputEnOrDe += char(NumberOfAscii);  
         }
         
-        if(NumberOfChoice == 1)
+        if(NumberOfChoice == "1")
             cout << "\nCipher Text: " << TextOutputEnOrDe << "\n\n";
        
-        else if(NumberOfChoice == 2)
+        else if(NumberOfChoice == "2")
             cout << "\nDecipher Text: " << TextOutputEnOrDe << "\n\n";
 }
